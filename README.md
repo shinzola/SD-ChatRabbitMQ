@@ -43,7 +43,7 @@ Este projeto demonstra a comunicação entre dois serviços Java independentes (
 ## ✅ Pré-requisitos
 
 - [Docker](https://www.docker.com/) e Docker Compose
-- [JDK 17+](https://adoptium.net/)
+- [JDK 21+](https://adoptium.net/)
 - [Apache Maven](https://maven.apache.org/) (caso compile localmente)
 - [Git](https://git-scm.com/)
 
