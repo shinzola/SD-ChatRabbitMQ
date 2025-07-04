@@ -1,0 +1,37 @@
+# SdChat/docker-compose.yml
+
+version: '3.8'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    # ADICIONE ESTE BLOCO 'HEALTHCHECK'
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "check_running", "-q"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+
+  consumer:
+    build:
+      context: ./consumer
+      dockerfile: Dockerfile
+    # ATUALIZE O 'DEPENDS_ON' PARA ESTE FORMATO
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+
+
+  producer:
+    build:
+      context: ./producer
+      dockerfile: Dockerfile
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    stdin_open: true
+    tty: true
